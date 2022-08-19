@@ -1,6 +1,7 @@
 [package]
 name = "lfws-rs"
 version = "0.1.0"
+description = "Large File Windowed Search"
 authors = ["Jason Reilly <jdr0887@gmail.com>"]
 edition = "2021"
 

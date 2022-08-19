@@ -10,6 +10,3 @@ clap = { version = "^3.2", features = ["derive"] }
 env_logger = "^0.9"
 humantime = "^2.1"
 log = { version = "^0.4", features = ["std"] }
-regex = "^1.5"
-serde = "^1.0"
-serde_derive = "^1.0"

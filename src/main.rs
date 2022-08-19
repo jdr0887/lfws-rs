@@ -15,7 +15,7 @@ use std::path;
 use std::time;
 
 #[derive(Parser, Debug)]
-#[clap(author = "Jason Reilly", version = "0.0.1", about = "Large File Windowed Search", long_about = None)]
+#[clap(author, version, about, long_about = None)]
 struct Args {
     #[clap(short = 'i', long = "input", required = true)]
     input: String,

@@ -23,7 +23,7 @@ struct Args {
     #[clap(short = 'f', long = "file", required = true, parse(from_os_str))]
     file: path::PathBuf,
 
-    #[clap(short = 's', long = "size (even number)", default_value_t = 10)]
+    #[clap(short = 's', long = "size (odd number)", default_value_t = 9)]
     size: usize,
 }
 fn main() -> Result<(), Box<dyn error::Error>> {
@@ -41,10 +41,10 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
     let mut count = 1;
     let mut cache: collections::VecDeque<String> = VecDeque::new();
-    let end_of_starting_range = (size / 2) - 2; // since a vec indexes at 0
+    let end_of_starting_range = (size / 2) - 1; // since a vec indexes at 0
     for line in br.lines() {
         let line = line.unwrap();
-        if cache.len() == size {
+        if cache.len() == size + 1 {
             cache.pop_front();
             let center_string = cache.get(end_of_starting_range + 1).unwrap();
             if center_string.contains(search) {
@@ -53,7 +53,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                 debug!("start_range: {:?}", start_range);
                 start_range.for_each(|a| println!("{}", cache.get(a).unwrap()));
                 println!("{}", format!("{}", cache.get(end_of_starting_range + 1).unwrap()).bold().red());
-                let end_range = (end_of_starting_range + 2)..(size - 1);
+                let end_range = (end_of_starting_range + 2)..size;
                 debug!("end range: {:?}", end_range);
                 end_range.for_each(|a| println!("{}", cache.get(a).unwrap()));
                 count = count + 1;

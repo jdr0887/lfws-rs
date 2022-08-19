@@ -44,8 +44,6 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let end_of_starting_range = (size / 2) - 2; // since a vec indexes at 0
     for line in br.lines() {
         let line = line.unwrap();
-        // debug!("length of cache: {}", cache.len());
-
         if cache.len() == size {
             cache.pop_front();
             let center_string = cache.get(end_of_starting_range + 1).unwrap();

@@ -11,7 +11,7 @@ lfws-rs -f <large_file> -i <search_string>
 ```
 ## Example
 In this example, the train.csv file is 170MB & comes from the Kaggle Foursquare Location Matching Challenge.
-```shell
+```
 $ RUST_LOG=info lfws-rs -f train.csv -i "Jumbo Seafood Restaurant" -s 5
 ------------ 1 ------------
 E_c22f871dc2bf1f,七十七銀行 本店営業部,38.260132423850585,140.87589596756771,青葉区中央3-3-20,仙台市,宮城県,980-8777,JP,https://www.77bank.co.jp,0222671111,Banks,P_e80f7aef7ac25e

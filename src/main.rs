@@ -17,8 +17,8 @@ use std::time;
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
-    #[clap(short = 'i', long = "input", required = true)]
-    input: String,
+    #[clap(short = 'r', long = "regex", required = true)]
+    regex: String,
 
     #[clap(short = 'f', long = "file", required = true, parse(from_os_str))]
     file: path::PathBuf,
@@ -33,21 +33,23 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let args = Args::parse();
     debug!("{:?}", args);
 
-    let search = &args.input;
+    let regex = &args.regex;
     let path = &args.file;
     let size = *&args.size as usize;
 
+    let re = regex::Regex::new(regex.as_str()).unwrap();
     let br = io::BufReader::new(fs::File::open(path.as_path()).unwrap());
 
     let mut count = 1;
     let mut cache: collections::VecDeque<String> = VecDeque::new();
     let end_of_starting_range = (size / 2) - 1; // since a vec indexes at 0
+
     for line in br.lines() {
         let line = line.unwrap();
         if cache.len() == size + 1 {
             cache.pop_front();
             let center_string = cache.get(end_of_starting_range + 1).unwrap();
-            if center_string.contains(search) {
+            if re.is_match(center_string) {
                 println!("{}", format!("------------ {} ------------", count).bold().green());
                 let start_range = 0..=end_of_starting_range;
                 debug!("start_range: {:?}", start_range);
